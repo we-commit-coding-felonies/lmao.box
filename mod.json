@@ -1,0 +1,8 @@
+{
+    "Name": "lmao.box",
+    "Description": "A gamemode with instant-locking smart pistols!",
+    "LoadPriority": 0,
+    "ConVars": [],
+    "Scripts": [],
+    "Localisation": []
+}
