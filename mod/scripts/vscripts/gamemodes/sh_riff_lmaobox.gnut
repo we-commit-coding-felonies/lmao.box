@@ -1,0 +1,49 @@
+global function RiffLmaoBox_Init 
+
+#if SERVER
+struct {
+    table<entity, int> playerWeapons
+    array<string> lmaoboxWeapons
+} file
+#endif
+
+void function RiffLmaoBox_Init()
+{
+    AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_RIFF", "riff_lmaobox", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "0" )
+
+    #if SERVER
+	if ( GetCurrentPlaylistVarInt( "riff_Lmaobox", 0 ) == 0 )
+		return
+
+	SetLoadoutGracePeriodEnabled( false )
+	SetWeaponDropsEnabled( false )
+	
+	file.lmaoboxWeapons = [
+		"mp_weapon_smart_pistol"
+	]
+
+	AddCallback_OnPlayerRespawned( LmaoboxSetWeapons )
+	#endif
+
+
+}
+
+#if SERVER
+void function LmaoboxSetWeapons( entity player )
+{
+	player.SetMaxHealth( 1 )
+
+    foreach( entity weapon in player.GetMainWeapons() )
+		player.TakeWeaponNow( weapon.GetWeaponClassName() )
+	
+	player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_RIGHT ).GetWeaponClassName() )
+	if ( !HasOffhandWeapon( player, "mp_weapon_grenade_sonar" ) )
+		player.GiveOffhandWeapon( "mp_weapon_grenade_sonar", OFFHAND_RIGHT )
+	
+    player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
+	if ( !HasOffhandWeapon( player, "mp_ability_grapple" ) )
+		player.GiveOffhandWeapon( "mp_ability_grapple", OFFHAND_LEFT )
+
+	player.GiveWeapon( "mp_weapon_smart_pistol" )
+}
+#endif

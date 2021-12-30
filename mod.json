@@ -2,7 +2,11 @@
     "Name": "lmao.box",
     "Description": "A gamemode with instant-locking smart pistols!",
     "LoadPriority": 0,
+    "Version": "0.0.1",
     "ConVars": [],
-    "Scripts": [],
+    "Scripts": [{
+        "Path": "gamemodes/sh_riff_lmaobox.gnut",
+        "RunOn": "( CLIENT || SERVER ) && MP"
+    }],
     "Localisation": []
 }
