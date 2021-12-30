@@ -6,7 +6,14 @@
     "ConVars": [],
     "Scripts": [{
         "Path": "gamemodes/sh_riff_lmaobox.gnut",
-        "RunOn": "( CLIENT || SERVER ) && MP"
+        "RunOn": "( CLIENT || SERVER ) && MP",
+        "ClientCallback": {
+            "After": "RiffLmaoBox_Init"
+        },
+        
+        "ServerCallback": {
+            "After": "RiffLmaoBox_Init"
+        }
     }],
     "Localisation": []
 }
