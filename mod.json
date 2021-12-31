@@ -2,7 +2,7 @@
     "Name": "lmao.box",
     "Description": "A gamemode with instant-locking, instant-killing smart pistols. Ammo refills on kill.",
     "LoadPriority": 0,
-    "Version": "0.0.2",
+    "Version": "0.0.3",
     "ConVars": [],
     "Scripts": [{
         "Path": "gamemodes/sh_riff_lmaobox.gnut",
@@ -15,7 +15,5 @@
             "After": "RiffLmaoBox_Init"
         }
     }],
-    "Localisation": [
-        "resource/lmaobox_localisation_english.txt"
-    ]
+    "Localisation": []
 }
