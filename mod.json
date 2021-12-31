@@ -15,5 +15,7 @@
             "After": "RiffLmaoBox_Init"
         }
     }],
-    "Localisation": []
+    "Localisation": [
+        "resource/lmaobox_localisation_english.txt"
+    ]
 }
