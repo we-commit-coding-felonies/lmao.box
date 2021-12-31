@@ -1,9 +1,58 @@
 {
     "Name": "lmao.box",
-    "Description": "A gamemode with instant-locking, instant-killing smart pistols. Ammo refills on kill.",
+    "Description": "A server-side gamemode with instant-locking, instant-killing smart pistols. Ammo refills on kill. Highly configurable, see the github page for details.",
     "LoadPriority": 0,
-    "Version": "0.0.3",
-    "ConVars": [],
+    "Version": "0.0.4",
+    "ConVars": [
+        {
+            "Name": "lmao_defaulthealth",
+            "DefaultValue": "1"
+        },
+        {
+            "Name": "lmao_replaceordinance",
+            "DefaultValue": "1"
+        },
+        {
+            "Name": "lmao_ordinancereplacement",
+            "DefaultValue": "mp_weapon_grenade_sonar"
+        },
+        {
+            "Name": "lmao_bannedtacticals",
+            "DefaultValue": "mp_ability_cloak,mp_weapon_deployable_cover"
+        },
+        {
+            "Name": "lmao_tacticalreplacement",
+            "DefaultValue": "mp_ability_heal"
+        },
+        {
+            "Name": "lmao_enablehudmessages",
+            "DefaultValue": "1"
+        },
+        {
+            "Name": "lmao_messagerespawn",
+            "DefaultValue": "Get good, get LMAOBox!"
+        },
+        {
+            "Name": "lmao_messagebannedtactical",
+            "DefaultValue": "You can run, but you can't hide!"
+        },
+        {
+            "Name": "lmao_refillcliponkill",
+            "DefaultValue": "0"
+        },
+        {
+            "Name": "lmao_cliprefillamount",
+            "DefaultValue": "12"
+        },
+        {
+            "Name": "lmao_refillreserveonkill",
+            "DefaultValue": "1"
+        },
+        {
+            "Name": "lmao_reserverefillamount",
+            "DefaultValue": "12"
+        }
+    ],
     "Scripts": [{
         "Path": "gamemodes/sh_riff_lmaobox.gnut",
         "RunOn": "( CLIENT || SERVER ) && MP",
