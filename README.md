@@ -26,6 +26,7 @@ Some of these options use internal weapon names. A list of these can be found [h
 | `lmao_replaceordinance` | Boolean | `1` | If 1 (true), will replace all players ordinance (grenades). |
 | `lmao_ordinancereplacement` | String | `mp_weapon_grenade_sonar` | Defines what to replace ordinance with when `lmao_replaceordinance` is true. |
 | `lmao_bannedtacticals` | String | `mp_ability_cloak,mp_weapon_deployable_cover` | List of tacticals to be replaced. ***MUST*** be in the format `wep1,wep2,wep3,etc`. |
+| `lmao_replacebannedtactical` | Boolean | `1` | Turn this off to remove banend tacticals withoput replacing them |
 | `lmao_tacticalreplacement` | String | `mp_ability_heal` | Defines what to replace banned tacticals with. |
 | `lmao_enablehudmessages` | Boolean | `1` | Turn this off to disable all of the on-screen messages. |
 | `lmao_messagerespawn` | String | `Get good, get LMAOBox!` | Defines what message is displayed at the start of a match, and upon player respawn. |

@@ -1,4 +1,22 @@
+// Globals
 global function RiffLmaoBox_Init 
+
+global int healthAmount = GetConVarInt("lmao_defaulthealth")
+global int reserveRefillAmount = GetConVarInt("lmao_reserverefillamount")
+global int clipRefillAmount = GetConVarInt("lmao_cliprefillamount")
+
+global string ordinanceReplacement = GetConVarString("lmao_ordinancereplacement")
+global string bannedTacticalsStr = GetConVarString("lmao_bannedtacticals")
+global string tacticalReplacement = GetConVarString("lmao_tacticalreplacement")
+global string messageBannedTactical = GetConVarString("lmao_messagebannedtactical")
+global string messageRespawn = GetConVarString("lmao_messagerespawn")
+
+global bool enableHudMessages = GetConVarBool("lmao_enablehudmessages")
+global bool replaceBannedTactical = GetConVarBool("lmao_replacebannedtactical")
+global bool replaceOrdinance = GetConVarBool("lmao_replaceordinance")
+global bool refillClipOnKill = GetConVarBool("lmao_refillcliponkill")
+global bool refillReserveOnKill = GetConVarBool("lmao_refillreserveonkill")
+
 
 #if SERVER
 struct {
@@ -27,14 +45,7 @@ void function RiffLmaoBox_Init()
 #if SERVER
 void function LmaoboxSetWeapons( entity player )
 {
-	int healthAmount = GetConVarInt("lmao_defaulthealth")
-	bool replaceOrdinance = GetConVarBool("lmao_replaceordinance")
-	string ordinanceReplacement = GetConVarString("lmao_ordinancereplacement")
-	string bannedTacticalsStr = GetConVarString("lmao_bannedtacticals")
-	string tacticalReplacement = GetConVarString("lmao_tacticalreplacement")
-	bool enableHudMessages = GetConVarBool("lmao_enablehudmessages")
-	string messageRespawn = GetConVarString("lmao_messagerespawn")
-	string messageBannedTactical = GetConVarString("lmao_messagebannedtactical")
+	
 
 	array<string> bannedTacticals = split( bannedTacticalsStr, "," )
 	
@@ -57,13 +68,16 @@ void function LmaoboxSetWeapons( entity player )
 	if ( HasOffhandWeapon( player, "mp_ability_holopilot" ) && enableHudMessages == true ) {
 		SendHudMessage( player, "This is a certified Holo Pilot moment.", -1, 0.8, 105, 119, 144, 0, 0.15, 4, 0.15 )
 	}
+
 	foreach ( string bannedTacticalItem in bannedTacticals ) {
 		if ( HasOffhandWeapon( player, bannedTacticalItem ) ) {
 			player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
 			if ( enableHudMessages == true ) {
 				SendHudMessage( player, messageBannedTactical, -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
 			}
-			player.GiveOffhandWeapon( tacticalReplacement, OFFHAND_LEFT )
+			if ( replaceBannedTactical == true and tacticalReplacement != "") {
+				player.GiveOffhandWeapon( tacticalReplacement, OFFHAND_LEFT )
+			}
 		}
 	}
 
@@ -72,11 +86,6 @@ void function LmaoboxSetWeapons( entity player )
 
 void function LmaoboxGiveAmmo( entity victim, entity attacker, var damageInfo )
 {
-	bool refillClipOnKill = GetConVarBool("lmao_refillcliponkill")
-	int clipRefillAmount = GetConVarInt("lmao_cliprefillamount")
-	bool refillReserveOnKill = GetConVarBool("lmao_refillreserveonkill")
-	int reserveRefillAmount = GetConVarInt("lmao_reserverefillamount")
-
 	if ( !victim.IsPlayer() || !attacker.IsPlayer() || victim == attacker ) {
 		return
 	}
