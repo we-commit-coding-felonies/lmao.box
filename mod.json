@@ -1,8 +1,8 @@
 {
     "Name": "lmao.box",
-    "Description": "A gamemode with instant-locking smart pistols!",
+    "Description": "A gamemode with instant-locking, instant-killing smart pistols. Ammo refills on kill.",
     "LoadPriority": 0,
-    "Version": "0.0.1",
+    "Version": "0.0.2",
     "ConVars": [],
     "Scripts": [{
         "Path": "gamemodes/sh_riff_lmaobox.gnut",
