@@ -32,7 +32,7 @@ void function RiffLmaoBox_Init()
 #if SERVER
 void function LmaoboxSetWeapons( entity player )
 {
-	SendHudMessage( player, "Get good, get LMAObox!", -1, 0.4, 255, 255, 255, 0, 0.15, 4, 0.15 )
+	SendHudMessage( player, "Get good, get LMAObox!", -1, 0.8, 255, 255, 255, 0, 0.15, 4, 0.15 )
 	player.SetMaxHealth( 1 )
 
     foreach( entity weapon in player.GetMainWeapons() ) {
@@ -48,10 +48,11 @@ void function LmaoboxSetWeapons( entity player )
 	}
 	if ( HasOffhandWeapon( player, "mp_ability_cloak" ) ) {
 		player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
-		SendHudMessage( player, "You can run, but you can't hide!", -1, 0.4, 255, 0, 0, 0, 0.15, 4, 0.15 )
-		if ( !HasOffhandWeapon( player, "mp_ability_heal" ) ) {
-			player.GiveOffhandWeapon( "mp_ability_heal", OFFHAND_LEFT )
-		}
+		SendHudMessage( player, "You can run, but you can't hide!", -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
+		player.GiveOffhandWeapon( "mp_ability_heal", OFFHAND_LEFT )
+	}
+	if ( HasOffhandWeapon( player, "mp_ability_holopilot" ) ) {
+		SendHudMessage( player, "This is a certified Holo Pilot moment.", -1, 0.8, 105, 119, 144, 0, 0.15, 4, 0.15 )
 	}
 
 	player.GiveWeapon( "mp_weapon_smart_pistol" )
