@@ -35,16 +35,24 @@ void function LmaoboxSetWeapons( entity player )
 	SendHudMessage( player, "Get good, get LMAObox!", -1, 0.4, 255, 0, 0, 0, 0.15, 4, 0.15 )
 	player.SetMaxHealth( 1 )
 
-    foreach( entity weapon in player.GetMainWeapons() )
+    foreach( entity weapon in player.GetMainWeapons() ) {
 		player.TakeWeaponNow( weapon.GetWeaponClassName() )
-	
+	}
 	player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_RIGHT ).GetWeaponClassName() )
-	if ( !HasOffhandWeapon( player, "mp_weapon_grenade_sonar" ) )
+	if ( !HasOffhandWeapon( player, "mp_weapon_grenade_sonar" ) ) {
 		player.GiveOffhandWeapon( "mp_weapon_grenade_sonar", OFFHAND_RIGHT )
-	
-    player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
-	if ( HasOffhandWeapon( player, "mp_ability_cloak" ) )
+	} else {
+		player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
+		player.GiveOffhandWeapon( "mp_weapon_grenade_sonar", OFFHAND_RIGHT )
 		player.GiveOffhandWeapon( "mp_ability_grapple", OFFHAND_LEFT )
+	}
+	if ( HasOffhandWeapon( player, "mp_ability_cloak" ) ) {
+		player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
+		SendHudMessage( player, "You can run, but you can't hide!", -1, 0.4, 255, 0, 0, 0, 0.15, 4, 0.15 )
+		if ( !HasOffhandWeapon( player, "mp_ability_heal" ) ) {
+			player.GiveOffhandWeapon( "mp_ability_heal", OFFHAND_LEFT )
+		}
+	}
 
 	player.GiveWeapon( "mp_weapon_smart_pistol" )
 }
@@ -54,9 +62,8 @@ void function LmaoboxGiveAmmo( entity victim, entity attacker, var damageInfo )
 	if ( !victim.IsPlayer() || !attacker.IsPlayer() || victim == attacker )
 		return
 	
-	foreach( entity weapon in player.GetMainWeapons() )
-		player.TakeWeaponNow( weapon.GetWeaponClassName() )
-	
-	player.GiveWeapon( "mp_weapon_smart_pistol" )
+	foreach ( entity weapon in attacker.GetMainWeapons() ) {
+		weapon.SetWeaponPrimaryAmmoCount(12)
+	}
 }
 #endif
