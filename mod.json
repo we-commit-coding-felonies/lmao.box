@@ -13,6 +13,10 @@
             "DefaultValue": "1"
         },
         {
+            "Name": "lmao_replacebannedtactical",
+            "DefaultValue":"1"
+        },
+        {
             "Name": "lmao_ordinancereplacement",
             "DefaultValue": "mp_weapon_grenade_sonar"
         },
