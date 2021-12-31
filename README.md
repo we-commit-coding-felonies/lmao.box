@@ -34,7 +34,6 @@ Some of these options use internal weapon names. A list of these can be found [h
 | `lmao_cliprefillamount` | Integer | `12` | Defines the number of bullets for `lmao_refillcliponkill` |
 | `lmao_refillreserveonkill` | Boolean | `1` | If enabled, sets the reserve ammo to a number upon killing another player |
 | `lmao_reserverefillamount` | Integer | `12` | Defines the number of bullets for `lmao_refillreserveonkill` |
-|
 
 
 ## FAQ
