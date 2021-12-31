@@ -32,7 +32,7 @@ void function RiffLmaoBox_Init()
 #if SERVER
 void function LmaoboxSetWeapons( entity player )
 {
-	SendHudMessage( player, "Get good, get LMAObox!", -1, 0.4, 255, 0, 0, 0, 0.15, 4, 0.15 )
+	SendHudMessage( player, "Get good, get LMAObox!", -1, 0.4, 255, 255, 255, 0, 0.15, 4, 0.15 )
 	player.SetMaxHealth( 1 )
 
     foreach( entity weapon in player.GetMainWeapons() ) {
