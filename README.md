@@ -13,6 +13,7 @@ A Northstar Riff for a silly smart pistol gamemode.
 3. Reload your mods, or restart the game
 
 If you did all that right, there should be an option in private lobby settings under `Riffs` to enable the mode. Have fun!
+It is also entirely server-side, clients don't need to download or install anything!
 
 ## FAQ
 - Why?
