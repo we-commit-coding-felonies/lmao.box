@@ -1,8 +1,0 @@
-"lang"
-{
-	"Language" "english"
-	"Tokens"
-	{
-		"riff_lmaobox" "LMAOBox Mode" 
-	}
-}
