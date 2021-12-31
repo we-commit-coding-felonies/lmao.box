@@ -1,21 +1,21 @@
 // Globals
 global function RiffLmaoBox_Init 
 
-global int healthAmount = GetConVarInt("lmao_defaulthealth")
-global int reserveRefillAmount = GetConVarInt("lmao_reserverefillamount")
-global int clipRefillAmount = GetConVarInt("lmao_cliprefillamount")
+global int healthAmount
+global int reserveRefillAmount
+global int clipRefillAmount
 
-global string ordinanceReplacement = GetConVarString("lmao_ordinancereplacement")
-global string bannedTacticalsStr = GetConVarString("lmao_bannedtacticals")
-global string tacticalReplacement = GetConVarString("lmao_tacticalreplacement")
-global string messageBannedTactical = GetConVarString("lmao_messagebannedtactical")
-global string messageRespawn = GetConVarString("lmao_messagerespawn")
+global string ordinanceReplacement
+global string bannedTacticalsStr
+global string tacticalReplacement
+global string messageBannedTactical
+global string messageRespawn
 
-global bool enableHudMessages = GetConVarBool("lmao_enablehudmessages")
-global bool replaceBannedTactical = GetConVarBool("lmao_replacebannedtactical")
-global bool replaceOrdinance = GetConVarBool("lmao_replaceordinance")
-global bool refillClipOnKill = GetConVarBool("lmao_refillcliponkill")
-global bool refillReserveOnKill = GetConVarBool("lmao_refillreserveonkill")
+global bool enableHudMessages
+global bool replaceBannedTactical
+global bool replaceOrdinance
+global bool refillClipOnKill
+global bool refillReserveOnKill
 
 
 #if SERVER
@@ -26,6 +26,20 @@ struct {
 
 void function RiffLmaoBox_Init()
 {
+	healthAmount = GetConVarInt("lmao_defaulthealth")
+	reserveRefillAmount = GetConVarInt("lmao_reserverefillamount")
+	clipRefillAmount = GetConVarInt("lmao_cliprefillamount")
+	ordinanceReplacement = GetConVarString("lmao_ordinancereplacement")
+	bannedTacticalsStr = GetConVarString("lmao_bannedtacticals")
+	tacticalReplacement = GetConVarString("lmao_tacticalreplacement")
+	messageBannedTactical = GetConVarString("lmao_messagebannedtactical")
+	messageRespawn = GetConVarString("lmao_messagerespawn")
+	enableHudMessages = GetConVarBool("lmao_enablehudmessages")
+	replaceBannedTactical = GetConVarBool("lmao_replacebannedtactical")
+	replaceOrdinance = GetConVarBool("lmao_replaceordinance")
+	refillClipOnKill = GetConVarBool("lmao_refillcliponkill")
+	refillReserveOnKill = GetConVarBool("lmao_refillreserveonkill")
+
     AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_RIFF", "LMAOBox", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "0" )
 
     #if SERVER
@@ -75,7 +89,7 @@ void function LmaoboxSetWeapons( entity player )
 			if ( enableHudMessages == true ) {
 				SendHudMessage( player, messageBannedTactical, -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
 			}
-			if ( replaceBannedTactical == true and tacticalReplacement != "") {
+			if ( replaceBannedTactical == true && tacticalReplacement != "") {
 				player.GiveOffhandWeapon( tacticalReplacement, OFFHAND_LEFT )
 			}
 		}
