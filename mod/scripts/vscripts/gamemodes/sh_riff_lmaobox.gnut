@@ -105,14 +105,11 @@ void function LmaoboxGiveAmmo( entity victim, entity attacker, var damageInfo )
 	
 	foreach ( entity weapon in attacker.GetMainWeapons() ) {
 		if ( refillClipOnKill == true ) {
-			if ( clipRefillAmount >= 13 ) {
-				clipRefillAmount = 12
+			int toSet = weapon.GetWeaponPrimaryClipCount() + clipRefillAmount + 1
+			if ( toSet > 12 ) {
+				toSet = 12
 			}
-			if ( clipRefillAmount == 12 ) {
-				weapon.SetWeaponPrimaryClipCount(clipRefillAmount)
-			} else {
-				weapon.SetWeaponPrimaryClipCount(clipRefillAmount + 1)
-			}
+			weapon.SetWeaponPrimaryClipCount( toSet )
 		}
 		if ( refillReserveOnKill == true ) {
 			weapon.SetWeaponPrimaryAmmoCount(reserveRefillAmount)
