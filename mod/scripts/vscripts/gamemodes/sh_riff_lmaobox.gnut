@@ -59,7 +59,6 @@ void function RiffLmaoBox_Init()
 #if SERVER
 void function LmaoboxSetWeapons( entity player )
 {
-	
 
 	array<string> bannedTacticals = split( bannedTacticalsStr, "," )
 	
@@ -106,7 +105,14 @@ void function LmaoboxGiveAmmo( entity victim, entity attacker, var damageInfo )
 	
 	foreach ( entity weapon in attacker.GetMainWeapons() ) {
 		if ( refillClipOnKill == true ) {
-			weapon.SetWeaponPrimaryClipCount(clipRefillAmount)
+			if ( clipRefillAmount >= 13 ) {
+				clipRefillAmount = 12
+			}
+			if ( clipRefillAmount == 12 ) {
+				weapon.SetWeaponPrimaryClipCount(clipRefillAmount)
+			} else {
+				weapon.SetWeaponPrimaryClipCount(clipRefillAmount + 1)
+			}
 		}
 		if ( refillReserveOnKill == true ) {
 			weapon.SetWeaponPrimaryAmmoCount(reserveRefillAmount)
