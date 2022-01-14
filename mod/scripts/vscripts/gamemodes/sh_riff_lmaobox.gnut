@@ -10,6 +10,8 @@ global string bannedTacticalsStr
 global string tacticalReplacement
 global string messageBannedTactical
 global string messageRespawn
+global string messageOnKill
+global string messageOnDie
 
 global bool enableHudMessages
 global bool replaceBannedTactical
