@@ -34,16 +34,18 @@ void function RiffLmaoBox_Init()
 	tacticalReplacement = GetConVarString("lmao_tacticalreplacement")
 	messageBannedTactical = GetConVarString("lmao_messagebannedtactical")
 	messageRespawn = GetConVarString("lmao_messagerespawn")
+	messageOnKill = GetConVarString("lmao_messageonkill")
+	messageOnDie = GetConVarString("lmao_messageondie")
 	enableHudMessages = GetConVarBool("lmao_enablehudmessages")
 	replaceBannedTactical = GetConVarBool("lmao_replacebannedtactical")
 	replaceOrdinance = GetConVarBool("lmao_replaceordinance")
 	refillClipOnKill = GetConVarBool("lmao_refillcliponkill")
 	refillReserveOnKill = GetConVarBool("lmao_refillreserveonkill")
 
-    AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_RIFF", "LMAOBox", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "0" )
+    AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_RIFF", "riff_lmaobox", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "0" )
 
     #if SERVER
-	if ( GetCurrentPlaylistVarInt( "LMAOBox", 0 ) == 0 )
+	if ( GetCurrentPlaylistVarInt( "riff_lmaobox", 0 ) == 0 )
 		return
 
 	SetLoadoutGracePeriodEnabled( false )
@@ -101,6 +103,11 @@ void function LmaoboxGiveAmmo( entity victim, entity attacker, var damageInfo )
 {
 	if ( !victim.IsPlayer() || !attacker.IsPlayer() || victim == attacker ) {
 		return
+	}
+
+	if ( enableHudMessages == true ) {
+		SendHudMessage( victim, messageOnDie, -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
+		SendHudMessage( attacker, messageOnKill, -1, 0.8, 0, 255, 0, 0, 0.15, 4, 0.15 )
 	}
 	
 	foreach ( entity weapon in attacker.GetMainWeapons() ) {
