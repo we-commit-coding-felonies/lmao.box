@@ -2,7 +2,7 @@
     "Name": "lmao.box",
     "Description": "A server-side gamemode with instant-locking, instant-killing smart pistols. Ammo refills on kill. Highly configurable, see the github page for details.",
     "LoadPriority": 0,
-    "Version": "1.0.0",
+    "Version": "1.0.1",
     "ConVars": [
         {
             "Name": "lmao_defaulthealth",
@@ -37,6 +37,14 @@
             "DefaultValue": "Get good, get LMAOBox!"
         },
         {
+            "Name": "lmao_messageonkill",
+            "DefaultValue": "LMAOBox - Way to the top!"
+        },
+        {
+            "Name": "lmao_messageondie",
+            "DefaultValue": "LMAOBox - Best free TF|2 hacks!"
+        },
+        {
             "Name": "lmao_messagebannedtactical",
             "DefaultValue": "You can run, but you can't hide!"
         },
@@ -68,5 +76,7 @@
             "After": "RiffLmaoBox_Init"
         }
     }],
-    "Localisation": []
+    "Localisation": [
+		"resource/lmaobox_%language%.txt"
+	]
 }
