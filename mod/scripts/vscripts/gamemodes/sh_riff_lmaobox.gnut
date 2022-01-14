@@ -108,8 +108,8 @@ void function LmaoboxGiveAmmo( entity victim, entity attacker, var damageInfo )
 	}
 
 	if ( enableHudMessages == true ) {
-		SendHudMessage( victim, messageOnDie, -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
 		SendHudMessage( attacker, messageOnKill, -1, 0.8, 0, 255, 0, 0, 0.15, 4, 0.15 )
+		SendHudMessage( victim, messageOnDie, -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
 	}
 	
 	foreach ( entity weapon in attacker.GetMainWeapons() ) {
