@@ -1,9 +1,6 @@
 // Globals
 global function RiffLmaoBox_Init 
 
-const int DEFAULT_CLIP_REFILL = 12
-const int DEFAULT_RESERVE_REFILL = 12
-
 global int healthAmount
 global int reserveRefillAmount
 global int clipRefillAmount
@@ -43,9 +40,9 @@ void function RiffLmaoBox_Init()
     AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_LMAOBOX", "riff_lmaobox", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "0" )
 
     AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_LMAOBOX", "lmaobox_refill_clip_on_kill", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "0" )
-	AddPrivateMatchModeSettingArbitrary( "#MODE_SETTING_CATEGORY_LMAOBOX", "lmaobox_refill_clip_amount", DEFAULT_CLIP_REFILL.tostring() )
+	AddPrivateMatchModeSettingArbitrary( "#MODE_SETTING_CATEGORY_LMAOBOX", "lmaobox_refill_clip_amount", "12" )
     AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_LMAOBOX", "lmaobox_refill_reserve_on_kill", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "1" )
-	AddPrivateMatchModeSettingArbitrary( "#MODE_SETTING_CATEGORY_LMAOBOX", "lmaobox_refill_reserve_amount", DEFAULT_RESERVE_REFILL.tostring() )
+	AddPrivateMatchModeSettingArbitrary( "#MODE_SETTING_CATEGORY_LMAOBOX", "lmaobox_refill_reserve_amount", "12" )
 
     AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_LMAOBOX", "lmaobox_replace_ordinance", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "1" )
 	AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_LMAOBOX", "lmaobox_replace_ordinance_with", [ "#WPN_GRENADE_SONAR", "#WPN_FRAG_GRENADE", "#WPN_GRENADE_EMP", "#WPN_THERMITE_GRENADE", "#WPN_GRENADE_ELECTRIC_SMOKE", "#WPN_FRAG_DRONE", "#WPN_GRENADE_GRAVITY", "#WPN_SATCHEL" ], "0" )
