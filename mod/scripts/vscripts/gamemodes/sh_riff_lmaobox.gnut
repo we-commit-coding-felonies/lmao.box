@@ -110,7 +110,7 @@ void function LmaoboxSetWeapons( entity player )
 				SendHudMessage( player, GetCurrentPlaylistVarString("lmaobox_message_on_banned_tactical"), -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
 			}
 			var tacticalReplacements = [
-				"mp_ability_cloak", refillReserveOnKill
+				"mp_ability_cloak",
 				"mp_weapon_grenade_sonar", 
 				"mp_ability_grapple", 
 				"mp_ability_heal", 
