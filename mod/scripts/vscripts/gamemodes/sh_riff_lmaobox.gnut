@@ -110,7 +110,7 @@ void function LmaoboxSetWeapons( entity player )
 				SendHudMessage( player, GetCurrentPlaylistVarString("lmaobox_message_on_banned_tactical"), -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
 			}
 			var tacticalReplacements = [
-				"mp_ability_cloak", 
+				"mp_ability_cloak", refillReserveOnKill
 				"mp_weapon_grenade_sonar", 
 				"mp_ability_grapple", 
 				"mp_ability_heal", 
@@ -119,8 +119,8 @@ void function LmaoboxSetWeapons( entity player )
 				"mp_ability_holopilot",
 				""
 			]	
-			if ( tacticalReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_banned_tacticals_with",2)] != "") {
-				player.GiveOffhandWeapon( tacticalReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_banned_tacticals_with",2)], OFFHAND_LEFT )
+			if ( tacticalReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_banned_tacticals_with",3)] != "") {
+				player.GiveOffhandWeapon( tacticalReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_banned_tacticals_with",3)], OFFHAND_LEFT )
 			}
 		}
 	}
@@ -133,21 +133,21 @@ void function LmaoboxGiveAmmo( entity victim, entity attacker, var damageInfo )
 		return
 	}
 
-	if ( enableHudMessages == true ) {
-		SendHudMessage( attacker, messageOnKill, -1, 0.8, 0, 255, 0, 0, 0.15, 4, 0.15 )
-		SendHudMessage( victim, messageOnDie, -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
+	if ( GetCurrentPlaylistVarInt("lmaobox_hud_messages",1) == 1) {
+		SendHudMessage( attacker, GetCurrentPlaylistVarString("lmaobox_message_on_kill","LMAOBox - Way to the top!"), -1, 0.8, 0, 255, 0, 0, 0.15, 4, 0.15 )
+		SendHudMessage( victim,  GetCurrentPlaylistVarString("lmaobox_message_on_die","LMAOBox - Best free TF|2 hacks!") -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
 	}
 	
 	foreach ( entity weapon in attacker.GetMainWeapons() ) {
-		if ( refillClipOnKill == true ) {
-			int toSet = weapon.GetWeaponPrimaryClipCount() + clipRefillAmount + 1
+		if ( GetCurrentPlaylistVarInt("lmaobox_refill_clip_on_kill",0) == 1 ) {
+			int toSet = weapon.GetWeaponPrimaryClipCount() + GetCurrentPlaylistVarInt("lmaobox_refill_clip_amount",12) + 1
 			if ( toSet > 12 ) {
 				toSet = 12
 			}
 			weapon.SetWeaponPrimaryClipCount( toSet )
 		}
-		if ( refillReserveOnKill == true ) {
-			weapon.SetWeaponPrimaryAmmoCount(reserveRefillAmount)
+		if ( GetCurrentPlaylistVarInt("lmaobox_refill_reserve_on_kill",1) == 1 ) {
+			weapon.SetWeaponPrimaryAmmoCount(GetCurrentPlaylistVarInt("lamobox_refill_reserve_amount",12))
 		}
 	}
 }
