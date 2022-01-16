@@ -1,6 +1,13 @@
 // Globals
 global function RiffLmaoBox_Init 
 
+//Needed to type arrays
+struct {
+	array<string> ordinance
+	array<string> tactical
+	array<string> banned
+} replacements
+
 void function RiffLmaoBox_Init()
 {
 	// Adds private match settings, under #MODE_SETTING_CATEGORY_LMAOBOX. Format seems to be category, playlist var name, [options] unless arbitrary, default value
@@ -54,7 +61,7 @@ void function LmaoboxSetWeapons( entity player )
 
 	if ( GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with",0) != 9) {
 		player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_RIGHT ).GetWeaponClassName() )
-		var ordinanceReplacements = [
+		replacements.ordinance = [
 			"mp_weapon_grenade_sonar",
 			"mp_weapon_frag_grenade",
 			"mp_weapon_grenade_emp", 
@@ -64,13 +71,13 @@ void function LmaoboxSetWeapons( entity player )
 			"mp_weapon_grenade_gravity", 
 			"mp_weapon_satchel",
 			""
-		]
-		if ( ordinanceReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)] == "mp_weapon_grenade_sonar") {
+		] 
+		if ( replacements.ordinance[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)] == "mp_weapon_grenade_sonar") {
 			player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
 			player.GiveOffhandWeapon( "mp_ability_grapple", OFFHAND_LEFT )
-			player.GiveOffhandWeapon( ordinanceReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)], OFFHAND_RIGHT)
-		} else if ( ordinanceReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)] != "") {
-			player.GiveOffhandWeapon( ordinanceReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)], OFFHAND_RIGHT)
+			player.GiveOffhandWeapon( replacements.ordinance[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)], OFFHAND_RIGHT)
+		} else if ( replacements.ordinance[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)] != "") {
+			player.GiveOffhandWeapon( replacements.ordinance[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)], OFFHAND_RIGHT)
 		}
 	}
 		
@@ -80,37 +87,37 @@ void function LmaoboxSetWeapons( entity player )
 	
 	//This is a fucking crime, blame sol
 	// :)
-	var bannedTacticals = []
+	replacements.banned = []
 	if ( GetCurrentPlaylistVarInt("lmaobox_ban_pulse_blade",0) == 1 ) {
-		bannedTacticals.append("mp_weapon_grenade_sonar")
+		replacements.banned.append("mp_weapon_grenade_sonar")
 	}
 	if ( GetCurrentPlaylistVarInt("lmaobox_ban_grapple",0) == 1 ) {
-		bannedTacticals.append("mp_ability_grapple")
+		replacements.banned.append("mp_ability_grapple")
 	}
 	if ( GetCurrentPlaylistVarInt("lmaobox_ban_stim",0) == 1 ) {
-		bannedTacticals.append("mp_ability_heal")
+		replacements.banned.append("mp_ability_heal")
 	}
 	if ( GetCurrentPlaylistVarInt("lmaobox_ban_phase_shift",0) == 1 ) {
-		bannedTacticals.append("mp_ability_shifter")
+		replacements.banned.append("mp_ability_shifter")
 	}
 	if ( GetCurrentPlaylistVarInt("lmaobox_ban_holo_pilot",0) == 1 ) {
-		bannedTacticals.append("mp_ability_holopilot")
+		replacements.banned.append("mp_ability_holopilot")
 	}
 	if ( GetCurrentPlaylistVarInt("lmaobox_ban_cloak",1) == 1 ) {
-		bannedTacticals.append("mp_ability_cloak")
+		replacements.banned.append("mp_ability_cloak")
 	}
 	if ( GetCurrentPlaylistVarInt("lmaobox_ban_awall",1) == 1 ) {
-		bannedTacticals.append("mp_weapon_deployable_cover")
+		replacements.banned.append("mp_weapon_deployable_cover")
 	}
 
-	foreach ( string bannedTacticalItem in bannedTacticals ) {
+	foreach ( string bannedTacticalItem in replacements.banned ) {
 		if ( HasOffhandWeapon( player, bannedTacticalItem ) ) {
 			player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
 
 			if ( GetCurrentPlaylistVarInt("lmaobox_hud_messages",1) == 1 ) {
-				SendHudMessage( player, GetCurrentPlaylistVarString("lmaobox_message_on_banned_tactical"), -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
+				SendHudMessage( player, GetCurrentPlaylistVarString("lmaobox_message_on_banned_tactical","You can run, but you can't hide!"), -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
 			}
-			var tacticalReplacements = [
+			replacements.tactical = [
 				"mp_ability_cloak",
 				"mp_weapon_grenade_sonar", 
 				"mp_ability_grapple", 
@@ -120,8 +127,8 @@ void function LmaoboxSetWeapons( entity player )
 				"mp_ability_holopilot",
 				""
 			]	
-			if ( tacticalReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_banned_tacticals_with",3)] != "") {
-				player.GiveOffhandWeapon( tacticalReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_banned_tacticals_with",3)], OFFHAND_LEFT )
+			if ( replacements.tactical[GetCurrentPlaylistVarInt("lmaobox_replace_banned_tacticals_with",3)] != "") {
+				player.GiveOffhandWeapon( replacements.tactical[GetCurrentPlaylistVarInt("lmaobox_replace_banned_tacticals_with",3)], OFFHAND_LEFT )
 			}
 		}
 	}
@@ -136,7 +143,7 @@ void function LmaoboxGiveAmmo( entity victim, entity attacker, var damageInfo )
 
 	if ( GetCurrentPlaylistVarInt("lmaobox_hud_messages",1) == 1) {
 		SendHudMessage( attacker, GetCurrentPlaylistVarString("lmaobox_message_on_kill","LMAOBox - Way to the top!"), -1, 0.8, 0, 255, 0, 0, 0.15, 4, 0.15 )
-		SendHudMessage( victim,  GetCurrentPlaylistVarString("lmaobox_message_on_die","LMAOBox - Best free TF|2 hacks!") -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
+		SendHudMessage( victim,  GetCurrentPlaylistVarString("lmaobox_message_on_die","LMAOBox - Best free TF|2 hacks!"), -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
 	}
 	
 	foreach ( entity weapon in attacker.GetMainWeapons() ) {
