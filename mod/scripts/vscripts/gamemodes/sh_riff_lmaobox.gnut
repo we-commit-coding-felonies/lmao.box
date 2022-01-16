@@ -79,6 +79,7 @@ void function LmaoboxSetWeapons( entity player )
 	}
 	
 	//This is a fucking crime, blame sol
+	// :)
 	var bannedTacticals = []
 	if ( GetCurrentPlaylistVarInt("lmaobox_ban_pulse_blade",0) == 1 ) {
 		bannedTacticals.append("mp_weapon_grenade_sonar")
