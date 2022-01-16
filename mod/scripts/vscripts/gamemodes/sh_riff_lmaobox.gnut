@@ -1,42 +1,8 @@
 // Globals
 global function RiffLmaoBox_Init 
 
-global int healthAmount
-global int reserveRefillAmount
-global int clipRefillAmount
-
-global string ordinanceReplacement
-global string bannedTacticalsStr
-global string tacticalReplacement
-global string messageBannedTactical
-global string messageRespawn
-global string messageOnKill
-global string messageOnDie
-
-global bool enableHudMessages
-global bool replaceBannedTactical
-global bool replaceOrdinance
-global bool refillClipOnKill
-global bool refillReserveOnKill
-
 void function RiffLmaoBox_Init()
 {
-	healthAmount = GetConVarInt("lmao_defaulthealth")
-	reserveRefillAmount = GetConVarInt("lmao_reserverefillamount")
-	clipRefillAmount = GetConVarInt("lmao_cliprefillamount")
-	ordinanceReplacement = GetConVarString("lmao_ordinancereplacement")
-	bannedTacticalsStr = GetConVarString("lmao_bannedtacticals")
-	tacticalReplacement = GetConVarString("lmao_tacticalreplacement")
-	messageBannedTactical = GetConVarString("lmao_messagebannedtactical")
-	messageRespawn = GetConVarString("lmao_messagerespawn")
-	messageOnKill = GetConVarString("lmao_messageonkill")
-	messageOnDie = GetConVarString("lmao_messageondie")
-	enableHudMessages = GetConVarBool("lmao_enablehudmessages")
-	replaceBannedTactical = GetConVarBool("lmao_replacebannedtactical")
-	replaceOrdinance = GetConVarBool("lmao_replaceordinance")
-	refillClipOnKill = GetConVarBool("lmao_refillcliponkill")
-	refillReserveOnKill = GetConVarBool("lmao_refillreserveonkill")
-
     AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_LMAOBOX", "riff_lmaobox", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "0" )
 
     AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_LMAOBOX", "lmaobox_refill_clip_on_kill", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "0" )
@@ -71,27 +37,21 @@ void function RiffLmaoBox_Init()
 	AddCallback_OnPlayerRespawned( LmaoboxSetWeapons )
 	AddCallback_OnPlayerKilled( LmaoboxGiveAmmo )
 	#endif
-
-
 }
 
 #if SERVER
 void function LmaoboxSetWeapons( entity player )
 {
-
-	array<string> bannedTacticals = split( bannedTacticalsStr, "," )
-	
-	if ( enableHudMessages == true ) {
-		SendHudMessage( player, messageRespawn, -1, 0.8, 255, 255, 255, 0, 0.15, 4, 0.15 )
+	if ( GetCurrentPlaylistVarInt( "lmaobox_hud_messages", 1 ) == 1 ) {
+		SendHudMessage( player, GetCurrentPlaylistVarString( "lmaobox_message_on_spawn", "Get good, get LMAOBox!" ), -1, 0.8, 255, 255, 255, 0, 0.15, 4, 0.15 )
 	}
-	player.SetMaxHealth( healthAmount )
 
     foreach( entity weapon in player.GetMainWeapons() ) {
 		player.TakeWeaponNow( weapon.GetWeaponClassName() )
 	}
-	if ( replaceOrdinance == true ) {
+	if ( !GetCurrentPlaylistVarInt( "lmaobox_replace_ordinance_with", 0 ) == 9 ) {
 		player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_RIGHT ).GetWeaponClassName() )
-		if ( ordinanceReplacement == "mp_weapon_grenade_sonar" && HasOffhandWeapon( player, "mp_weapon_grenade_sonar" ) ) {
+		if ( GetCurrentPlaylistVarInt( "lmaobox_replace_ordinance_with", 0 ) == 0 && HasOffhandWeapon( player, "mp_weapon_grenade_sonar" ) ) {
 			player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
 			player.GiveOffhandWeapon( "mp_ability_grapple", OFFHAND_LEFT )
 		}
