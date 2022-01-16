@@ -3,6 +3,7 @@ global function RiffLmaoBox_Init
 
 void function RiffLmaoBox_Init()
 {
+	// Adds private match settings, under #MODE_SETTING_CATEGORY_LMAOBOX. Format seems to be category, playlist var name, [options] unless arbitrary, default value
     AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_LMAOBOX", "riff_lmaobox", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "0" )
 
     AddPrivateMatchModeSettingEnum( "#MODE_SETTING_CATEGORY_LMAOBOX", "lmaobox_refill_clip_on_kill", [ "#SETTING_DISABLED", "#SETTING_ENABLED" ], "0" )
@@ -28,6 +29,7 @@ void function RiffLmaoBox_Init()
     AddPrivateMatchModeSettingArbitrary( "#MODE_SETTING_CATEGORY_LMAOBOX", "lmaobox_message_on_banned_tactical", "You can run, but you can't hide!" )
 
     #if SERVER
+	// getcurrentplaylistvar(datatype, like int, string, etc) params are playlist var name, then something else idk what it is, seems setting to default value from above works fine
 	if ( GetCurrentPlaylistVarInt( "riff_lmaobox", 0 ) == 0 )
 		return
 
