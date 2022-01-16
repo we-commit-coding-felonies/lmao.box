@@ -78,7 +78,7 @@ void function LmaoboxSetWeapons( entity player )
 			""
 		] 
 		if ( replacements.ordinance[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)] == "mp_weapon_grenade_sonar") {
-			if ( player.GetOffhandWeapon( OFFHAND_LEFT ) == "mp_weapon_grenade_sonar") {
+			if ( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() == "mp_weapon_grenade_sonar") {
 				player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
 				player.GiveOffhandWeapon( "mp_ability_grapple", OFFHAND_LEFT )
 			}
