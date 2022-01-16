@@ -74,7 +74,7 @@ void function LmaoboxSetWeapons( entity player )
 		}
 	}
 		
-	if ( HasOffhandWeapon( player, "mp_ability_holopilot" ) && enableHudMessages == true ) {
+	if ( HasOffhandWeapon( player, "mp_ability_holopilot" ) && GetCurrentPlaylistVarInt("lmaobox_hud_messages",1) == 1 ) {
 		SendHudMessage( player, "This is a certified Holo Pilot moment.", -1, 0.8, 105, 119, 144, 0, 0.15, 4, 0.15 )
 	}
 	
