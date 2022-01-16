@@ -66,11 +66,7 @@ void function LmaoboxSetWeapons( entity player )
 
 	if ( GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with",0) != 9) {
 		player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_RIGHT ).GetWeaponClassName() )
-<<<<<<< Updated upstream
 		replacements.ordinance = [
-=======
-		array ordinanceReplacements = [
->>>>>>> Stashed changes
 			"mp_weapon_grenade_sonar",
 			"mp_weapon_frag_grenade",
 			"mp_weapon_grenade_emp", 
@@ -128,15 +124,8 @@ void function LmaoboxSetWeapons( entity player )
 			if ( GetCurrentPlaylistVarInt("lmaobox_hud_messages",1) == 1 ) {
 				SendHudMessage( player, GetCurrentPlaylistVarString("lmaobox_message_on_banned_tactical","You can run, but you can't hide!"), -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
 			}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+			
 			replacements.tactical = [
-=======
-			array tacticalReplacements = [
->>>>>>> Stashed changes
-=======
-			array tacticalReplacements = [
->>>>>>> Stashed changes
 				"mp_ability_cloak",
 				"mp_weapon_grenade_sonar", 
 				"mp_ability_grapple", 
