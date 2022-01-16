@@ -51,30 +51,79 @@ void function LmaoboxSetWeapons( entity player )
     foreach( entity weapon in player.GetMainWeapons() ) {
 		player.TakeWeaponNow( weapon.GetWeaponClassName() )
 	}
-	if ( !GetCurrentPlaylistVarInt( "lmaobox_replace_ordinance_with", 0 ) == 9 ) {
+
+	if ( GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with",0) != 9) {
 		player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_RIGHT ).GetWeaponClassName() )
-		if ( GetCurrentPlaylistVarInt( "lmaobox_replace_ordinance_with", 0 ) == 0 && HasOffhandWeapon( player, "mp_weapon_grenade_sonar" ) ) {
+		var ordinanceReplacements = [
+			"mp_weapon_grenade_sonar",
+			"mp_weapon_frag_grenade",
+			"mp_weapon_grenade_emp", 
+			"mp_weapon_thermite_grenade",
+			"mp_weapon_grenade_electric_smoke", 
+			"mp_weapon_frag_drone", 
+			"mp_weapon_grenade_gravity", 
+			"mp_weapon_satchel",
+			""
+		]
+		if ( ordinanceReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)] == "mp_weapon_grenade_sonar") {
 			player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
 			player.GiveOffhandWeapon( "mp_ability_grapple", OFFHAND_LEFT )
+			player.GiveOffhandWeapon( ordinanceReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)], OFFHAND_RIGHT)
+		} else if ( ordinanceReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)] != "") {
+			player.GiveOffhandWeapon( ordinanceReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_ordinance_with", 0)], OFFHAND_RIGHT)
 		}
-		player.GiveOffhandWeapon( ordinanceReplacement, OFFHAND_RIGHT )
 	}
+		
 	if ( HasOffhandWeapon( player, "mp_ability_holopilot" ) && enableHudMessages == true ) {
 		SendHudMessage( player, "This is a certified Holo Pilot moment.", -1, 0.8, 105, 119, 144, 0, 0.15, 4, 0.15 )
+	}
+	
+	//This is a fucking crime, blame sol
+	var bannedTacticals = []
+	if ( GetCurrentPlaylistVarInt("lmaobox_ban_pulse_blade",0) == 1 ) {
+		bannedTacticals.append("mp_weapon_grenade_sonar")
+	}
+	if ( GetCurrentPlaylistVarInt("lmaobox_ban_grapple",0) == 1 ) {
+		bannedTacticals.append("mp_ability_grapple")
+	}
+	if ( GetCurrentPlaylistVarInt("lmaobox_ban_stim",0) == 1 ) {
+		bannedTacticals.append("mp_ability_heal")
+	}
+	if ( GetCurrentPlaylistVarInt("lmaobox_ban_phase_shift",0) == 1 ) {
+		bannedTacticals.append("mp_ability_shifter")
+	}
+	if ( GetCurrentPlaylistVarInt("lmaobox_ban_holo_pilot",0) == 1 ) {
+		bannedTacticals.append("mp_ability_holopilot")
+	}
+	if ( GetCurrentPlaylistVarInt("lmaobox_ban_cloak",1) == 1 ) {
+		bannedTacticals.append("mp_ability_cloak")
+	}
+	if ( GetCurrentPlaylistVarInt("lmaobox_ban_awall",1) == 1 ) {
+		bannedTacticals.append("mp_weapon_deployable_cover")
 	}
 
 	foreach ( string bannedTacticalItem in bannedTacticals ) {
 		if ( HasOffhandWeapon( player, bannedTacticalItem ) ) {
 			player.TakeWeaponNow( player.GetOffhandWeapon( OFFHAND_LEFT ).GetWeaponClassName() )
-			if ( enableHudMessages == true ) {
-				SendHudMessage( player, messageBannedTactical, -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
+
+			if ( GetCurrentPlaylistVarInt("lmaobox_hud_messages",1) == 1 ) {
+				SendHudMessage( player, GetCurrentPlaylistVarString("lmaobox_message_on_banned_tactical"), -1, 0.8, 255, 0, 0, 0, 0.15, 4, 0.15 )
 			}
-			if ( replaceBannedTactical == true && tacticalReplacement != "") {
-				player.GiveOffhandWeapon( tacticalReplacement, OFFHAND_LEFT )
+			var tacticalReplacements = [
+				"mp_ability_cloak", 
+				"mp_weapon_grenade_sonar", 
+				"mp_ability_grapple", 
+				"mp_ability_heal", 
+				"mp_weapon_deployable_cover", 
+				"mp_ability_shifter", 
+				"mp_ability_holopilot",
+				""
+			]	
+			if ( tacticalReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_banned_tacticals_with",2)] != "") {
+				player.GiveOffhandWeapon( tacticalReplacements[GetCurrentPlaylistVarInt("lmaobox_replace_banned_tacticals_with",2)], OFFHAND_LEFT )
 			}
 		}
 	}
-
 	player.GiveWeapon( "mp_weapon_smart_pistol" )
 }
 
