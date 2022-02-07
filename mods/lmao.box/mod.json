@@ -2,7 +2,7 @@
     "Name": "lmao.box",
     "Description": "A server-side gamemode with instant-locking, instant-killing smart pistols. Ammo refills on kill. Highly configurable, see the github page for details.",
     "LoadPriority": 0,
-    "Version": "1.2",
+    "Version": "1.2.1",
     "ConVars": [],
     "Scripts": [{
         "Path": "gamemodes/sh_riff_lmaobox.gnut",
